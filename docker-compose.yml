@@ -1,0 +1,39 @@
+version: '3.7'
+
+services: 
+    job_api:
+        container_name: jobportal
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            DB_HOST: db
+            DB_DATABSASE: jobportal 
+            DB_USERNAME: root
+            DB_PASSWORD: root
+        ports: 
+            - 8000:8000
+        depends_on: 
+            - db    
+        volumes: 
+            - ./app:/app
+        networks: 
+            - job_network
+        
+        
+    db:
+        container_name: jobportal_database
+        image: mysql:5.7.22
+        restart: always
+        environment:
+            MYSQL_DATABASE: jobportal
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - 33066:3306
+            
+        networks:
+            - job_network
+networks: 
+    job_network:                           
