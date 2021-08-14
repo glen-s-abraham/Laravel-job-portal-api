@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Specialization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('countries','CountryController');
-Route::resource('states','StateController');
-Route::resource('educations','EducationController');
+Route::resource('countries', 'CountryController');
+Route::resource('states', 'StateController');
+Route::resource('educations', 'EducationController');
+Route::resource('specializations', 'SpecializationController');
+Route::resource('userRoles', 'UserRoleController');
 
