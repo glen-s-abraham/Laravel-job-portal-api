@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserRole;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class UserRoleController extends Controller
 {
@@ -14,17 +15,7 @@ class UserRoleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->showCollectionAsResponse(UserRole::all());
     }
 
     /**
@@ -35,7 +26,14 @@ class UserRoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->has('name'))
+        {
+            $userRole = UserRole::create(
+                $request->only(['name'])
+            );
+            return $this->showModelAsResponse($userRole);
+        }
+        throw ValidationException::withMessages(['name'=>['required']]);
     }
 
     /**
@@ -46,18 +44,7 @@ class UserRoleController extends Controller
      */
     public function show(UserRole $userRole)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\UserRole  $userRole
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(UserRole $userRole)
-    {
-        //
+        return $this->showModelAsResponse($userRole);
     }
 
     /**
@@ -69,7 +56,12 @@ class UserRoleController extends Controller
      */
     public function update(Request $request, UserRole $userRole)
     {
-        //
+        if($request->has('name'))
+        {
+            $userRole->update($request->only(['name']));
+            return $this->showModelAsResponse($userRole);
+        }
+        throw ValidationException::withMessages(['name'=>['required']]);
     }
 
     /**
@@ -80,6 +72,7 @@ class UserRoleController extends Controller
      */
     public function destroy(UserRole $userRole)
     {
-        //
+        $userRole->delete();
+        return $this->showModelAsResponse($userRole);
     }
 }
