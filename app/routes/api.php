@@ -15,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('countries','CountryController');
+Route::resource('states','StateController');
 Route::resource('educations','EducationController');
+
