@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class JobCategoryController extends Controller
 {
@@ -14,17 +15,7 @@ class JobCategoryController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->showCollectionAsResponse(JobCategory::all());
     }
 
     /**
@@ -35,7 +26,14 @@ class JobCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->has('name'))
+        {
+            $jobCategory = JobCategory::create(
+                $request->only(['name'])
+            );
+            return $this->showModelAsResponse($jobCategory);
+        }
+        throw ValidationException::withMessages(['name'=>['required']]);
     }
 
     /**
@@ -46,18 +44,7 @@ class JobCategoryController extends Controller
      */
     public function show(JobCategory $jobCategory)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\JobCategory  $jobCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(JobCategory $jobCategory)
-    {
-        //
+        return $this->showModelAsResponse($jobCategory);
     }
 
     /**
@@ -69,7 +56,12 @@ class JobCategoryController extends Controller
      */
     public function update(Request $request, JobCategory $jobCategory)
     {
-        //
+        if($request->has('name'))
+        {
+            $jobCategory->update($request->only(['name']));
+            return $this->showModelAsResponse($jobCategory);
+        }
+        throw ValidationException::withMessages(['name'=>['required']]);
     }
 
     /**
@@ -80,6 +72,7 @@ class JobCategoryController extends Controller
      */
     public function destroy(JobCategory $jobCategory)
     {
-        //
+        $jobCategory->delete();
+        return $this->showModelAsResponse($jobCategory);
     }
 }

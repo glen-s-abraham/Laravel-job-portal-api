@@ -20,4 +20,5 @@ Route::resource('states', 'StateController');
 Route::resource('educations', 'EducationController');
 Route::resource('specializations', 'SpecializationController');
 Route::resource('userRoles', 'UserRoleController');
+Route::resource('jobCategories', 'JobCategoryController');
 
