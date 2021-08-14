@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class CountryController extends Controller
 {
@@ -30,7 +31,7 @@ class CountryController extends Controller
             $country = Country::create($request->only(['name']));
             return $this->showModelAsResponse($country);
         }
-        return $this->errorResponse('Bad Request',400);
+        throw ValidationException::withMessages(['name'=>['required']]);
     }
 
     /**
@@ -58,7 +59,7 @@ class CountryController extends Controller
             $country->update($request->only(['name']));
             return $this->showModelAsResponse($country);
         }
-        return $this->errorResponse("Bad request",400);
+        throw ValidationException::withMessages(['name'=>['required']]);
         
     }
 
