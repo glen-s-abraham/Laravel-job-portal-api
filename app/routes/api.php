@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Specialization;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +22,10 @@ Route::resource('userRoles', 'UserRoleController');
 Route::resource('jobCategories', 'JobCategoryController');
 Route::resource('users','UserController');
 Route::resource('jobs','JobController');
+Route::get('user/{userId}/jobs','UserJobController@index');
+Route::get('job/{job}/applicants','JobApplicationController@getJobApplicants');
+Route::post('job/{job}/apply','JobApplicationController@applyForJob');
+Route::delete('job/{job}/cancel','JobApplicationController@cancelJobApplication');
+Route::get('myApplications','JobApplicationController@getMyJobApplications');
+
 

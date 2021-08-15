@@ -32,7 +32,7 @@ class JobController extends Controller
             'description',
             'job_category_id'
         ]);
-        $data['user_id'] = 1;//replace with auth()->user()->id
+        $data['user_id'] = 3;//replace with auth()->user()->id
         $job = JobList::create($data);
         return $this->showModelAsResponse($job);
     }

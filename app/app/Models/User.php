@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\JobList;
 
 class User extends Authenticatable
 {
@@ -47,4 +48,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function applications()
+    {
+        return $this->belongsToMany(
+            JobList::class,
+            'job_user',
+            'job_id',
+            'user_id'
+        );
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany(JobList::class);
+    }
+    
+
+    
 }
