@@ -27,5 +27,7 @@ Route::get('job/{job}/applicants','JobApplicationController@getJobApplicants');
 Route::post('job/{job}/apply','JobApplicationController@applyForJob');
 Route::delete('job/{job}/cancel','JobApplicationController@cancelJobApplication');
 Route::get('myApplications','JobApplicationController@getMyJobApplications');
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
 
 
