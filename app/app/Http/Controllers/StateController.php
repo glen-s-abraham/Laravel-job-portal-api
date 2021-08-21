@@ -30,6 +30,7 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', State::class);
         if($request->has('name'))
         {
             $state = State::create($request->only(['name']));
@@ -58,6 +59,7 @@ class StateController extends Controller
      */
     public function update(Request $request, State $state)
     {
+        $this->authorize('update', State::class);
         if($request->has('name'))
         {
             $state->update($request->only(['name']));
@@ -74,6 +76,7 @@ class StateController extends Controller
      */
     public function destroy(State $state)
     {
+        $this->authorize('destroy', State::class);
         $state->delete();
         return $this->showModelAsResponse($state);
     }

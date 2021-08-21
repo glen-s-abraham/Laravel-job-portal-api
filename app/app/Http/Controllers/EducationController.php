@@ -32,6 +32,7 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Education::class);
         if($request->has('education'))
         {
             $education = Education::create($request->only(['education']));
@@ -60,6 +61,7 @@ class EducationController extends Controller
      */
     public function update(Request $request, Education $education)
     {
+        $this->authorize('update', Education::class);
         if($request->has('education'))
         {
             $education->update($request->only(['education']));
@@ -76,6 +78,7 @@ class EducationController extends Controller
      */
     public function destroy(Education $education)
     {
+        $this->authorize('destroy', Education::class);
         $education->delete();
         return $this->showModelAsResponse($education);
     }

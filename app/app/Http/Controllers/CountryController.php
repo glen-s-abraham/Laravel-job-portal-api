@@ -30,6 +30,7 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Country::class);
         if($request->has('name'))
         {
             $country = Country::create($request->only(['name']));
@@ -58,6 +59,7 @@ class CountryController extends Controller
      */
     public function update(Request $request, Country $country)
     {
+        $this->authorize('update', Country::class);
         if($request->has('name'))
         {
             $country->update($request->only(['name']));
@@ -75,6 +77,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
+        $this->authorize('destroy', Country::class);
         $country->delete();
         return $this->showModelAsResponse($country);
     }

@@ -30,6 +30,7 @@ class SpecializationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Specialization::class);
         if($request->has('name'))
         {
             $specialization = Specialization::create(
@@ -60,6 +61,7 @@ class SpecializationController extends Controller
      */
     public function update(Request $request, Specialization $specialization)
     {
+        $this->authorize('update', Specialization::class);
         if($request->has('name'))
         {
             $specialization->update($request->only(['name']));
@@ -76,6 +78,7 @@ class SpecializationController extends Controller
      */
     public function destroy(Specialization $specialization)
     {
+        $this->authorize('destroy', Specialization::class);
         $specialization->delete();
         return $this->showModelAsResponse($specialization);
     }

@@ -30,6 +30,7 @@ class JobCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', JobCategory::class);
         if($request->has('name'))
         {
             $jobCategory = JobCategory::create(
@@ -60,6 +61,7 @@ class JobCategoryController extends Controller
      */
     public function update(Request $request, JobCategory $jobCategory)
     {
+        $this->authorize('update', JobCategory::class);
         if($request->has('name'))
         {
             $jobCategory->update($request->only(['name']));
@@ -76,6 +78,7 @@ class JobCategoryController extends Controller
      */
     public function destroy(JobCategory $jobCategory)
     {
+        $this->authorize('destroy', JobCategory::class);
         $jobCategory->delete();
         return $this->showModelAsResponse($jobCategory);
     }

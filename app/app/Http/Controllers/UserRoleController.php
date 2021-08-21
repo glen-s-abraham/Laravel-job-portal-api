@@ -30,6 +30,7 @@ class UserRoleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', UserRole::class);
         if($request->has('name'))
         {
             $userRole = UserRole::create(
@@ -60,6 +61,7 @@ class UserRoleController extends Controller
      */
     public function update(Request $request, UserRole $userRole)
     {
+        $this->authorize('update', UserRole::class);
         if($request->has('name'))
         {
             $userRole->update($request->only(['name']));
@@ -76,6 +78,7 @@ class UserRoleController extends Controller
      */
     public function destroy(UserRole $userRole)
     {
+        $this->authorize('destroy', UserRole::class);
         $userRole->delete();
         return $this->showModelAsResponse($userRole);
     }
