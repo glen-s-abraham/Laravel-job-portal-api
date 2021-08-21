@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Models\Country;
 use App\Models\Education;
 use App\Models\JobCategory;
+use App\Models\JobList;
 use App\Models\Specialization;
 use App\Models\State;
 use App\Models\UserRole;
 use App\Policies\AdminModelsPolicies;
+use App\Policies\JobPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -26,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         Specialization::class => AdminModelsPolicies::class,
         JobCategory::class => AdminModelsPolicies::class,
         UserRole::class => AdminModelsPolicies::class,
+        JobList::class => JobPolicy::class,
     ];
 
     /**

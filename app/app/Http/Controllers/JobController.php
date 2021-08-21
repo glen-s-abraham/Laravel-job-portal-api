@@ -31,6 +31,7 @@ class JobController extends Controller
      */
     public function store(JobStoreRequest $request)
     {
+        $this->authorize('create',JobList::class);
         $data = $request->only([
             'title',
             'description',
@@ -61,6 +62,7 @@ class JobController extends Controller
      */
     public function update(JobUpdateRequest $request, JobList $job)
     {
+        $this->authorize('update',$job);
         $job->update($request->only([
             'title',
             'description',
@@ -77,6 +79,7 @@ class JobController extends Controller
      */
     public function destroy(JobList $job)
     {
+        $this->authorize('delete',$job);
         $job->delete();
         return $this->showModelAsResponse($job);
     }
