@@ -63,6 +63,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
+        $this->authorize('update', $user);
         $user->update($request->only([
             'fname','lname','email',
             'mobile','state_id','country_id',
@@ -79,6 +80,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
         $user->delete();
         return $this->showModelAsResponse($user);
     }

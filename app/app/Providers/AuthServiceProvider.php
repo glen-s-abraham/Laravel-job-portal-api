@@ -11,6 +11,7 @@ use App\Models\State;
 use App\Models\UserRole;
 use App\Policies\AdminModelsPolicies;
 use App\Policies\JobPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -29,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         JobCategory::class => AdminModelsPolicies::class,
         UserRole::class => AdminModelsPolicies::class,
         JobList::class => JobPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
