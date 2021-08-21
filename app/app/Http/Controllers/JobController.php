@@ -9,6 +9,10 @@ use App\Http\Requests\JobUpdateRequest;
 
 class JobController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only(['store','update','destroy']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +36,7 @@ class JobController extends Controller
             'description',
             'job_category_id'
         ]);
-        $data['user_id'] = 3;//replace with auth()->user()->id
+        $data['user_id'] = auth()->user()->id;
         $job = JobList::create($data);
         return $this->showModelAsResponse($job);
     }
