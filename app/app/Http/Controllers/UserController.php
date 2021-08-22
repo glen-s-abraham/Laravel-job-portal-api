@@ -40,7 +40,14 @@ class UserController extends Controller
         $data['role_id'] = 3;
         $data['password'] = Hash::make($request->password);
         $user = User::create($data);
-        return $this->showModelAsResponse($user);
+        if($request->hasFile('avatar'))
+        {
+            $path = $request->file('avatar')->store('avatars');
+            $user->avatar()->create(['file' => $path]);
+        }
+        return $this->showModelAsResponse(
+            $user->load('avatar')
+        );
     }
 
     /**
@@ -51,7 +58,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $this->showModelAsResponse($user);
+        return $this->showModelAsResponse(
+            $user->load('avatar')
+        );
     }
 
     /**

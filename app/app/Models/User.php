@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\JobList;
+use App\Models\FileModel;
+use App\Models\Resume;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -64,7 +66,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(JobList::class);
     }
+
+    public function avatar()
+    {
+        return $this->morphOne(FileModel::class, 'fileable');
+    }
     
+    public function resume()
+    {
+        return $this->hasOne(Resume::class);
+    }
 
     
 }
