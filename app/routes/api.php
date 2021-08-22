@@ -33,6 +33,8 @@ Route::post('resumes','ResumeController@store');
 Route::put('resumes', 'ResumeController@update');
 Route::delete('resumes', 'ResumeController@destroy');
 Route::get('myResume','ResumeController@show');
+Route::get('allResumes','ResumeController@allResumes');
+Route::get('user/{user}/resume','ResumeController@userResume');
 
 
 

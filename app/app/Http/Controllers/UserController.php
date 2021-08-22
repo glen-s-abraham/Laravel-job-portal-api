@@ -78,6 +78,11 @@ class UserController extends Controller
             'mobile','state_id','country_id',
             'education_id','specialization_id'
         ]));
+        if($request->hasFile('avatar'))
+        {
+            $path = $request->file('avatar')->store('avatars');
+            $user->avatar()->update(['file' => $path]);
+        }
         return $this->showModelAsResponse($user);
     }
 

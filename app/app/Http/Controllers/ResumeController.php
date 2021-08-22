@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resume;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -13,6 +14,27 @@ class ResumeController extends Controller
         $this->middleware('auth:sanctum')->only(
             ['store','show','update','destroy','myResume']
         );
+    }
+    public function allResumes()
+    {
+        
+        return $this->showCollectionAsResponse(
+            Resume::with('owner','storedResume')
+                 ->get()
+        );
+    }
+
+    public function userResume(User $user)
+    {
+        if($user->resume)
+        {
+            $resume = $user->resume;
+            return $this->showModelAsResponse(
+                $resume->load('storedResume')
+            );
+        }
+        return $this->errorResponse('Resume not found', 404);
+        
     }
     /**
      * Store a newly created resource in storage.
